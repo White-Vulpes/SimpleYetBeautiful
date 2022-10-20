@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title>SimpleYetBeautiful</title>
+        <link rel="stylesheet" href="./style.css">
+    </head>
+    <body>
+        <div class="container">
+            <video autoplay muted loop id="myVideo">
+                <source src="./res/bg.mp4" type="video/mp4">
+            </video>
+            <div class="topper">
+                <p class="statictype">Simple Yet <span class="autotype"></span></p>
+                <input type="text" placeholder="username" onfocus="" class="user"><br>
+                <input type="password" placeholder="password" class="pass"><br>
+                <button class="button-30" role="button">Log In</button>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+        <script>
+            let typed = new Typed(".autotype", {
+                strings: ["Beautiful", "Awesome", "Mesmerizing", "Attractive"],
+                typeSpeed: 120,
+                backSpeed: 120,
+                loop: true
+            })
+        </script>
+    </body>
+</html>
