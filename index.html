@@ -12,7 +12,8 @@
                 <p class="statictype">Simple Yet <span class="autotype"></span></p>
                 <input type="text" placeholder="username" onfocus="" class="user"><br>
                 <input type="password" placeholder="password" class="pass"><br>
-                <button class="button-30" role="button">Log In</button>
+                <button class="button-30" onclick="login()" role="button">Log In</button>
+                <p id="Result">Hello World</p>
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
@@ -23,6 +24,16 @@
                 backSpeed: 120,
                 loop: true
             })
+
+            let login = async () => {
+                let result = JSON.parse(await fetch("http://127.0.0.1:3981/SignIn", {method: 'POST', mode: "cors", headers: {'content-type':'application/json'}, body: JSON.stringify({ "id": "RA2031005010007", "password": "foxareawesome"})}).then((response) => response.json()).then((user) => { return JSON.stringify(user);}));
+                if(result.name){
+                    document.getElementById('Result').innerHTML = result.name;
+                }
+                else{
+                    document.getElementById('Result').innerHTML = "Error Occured";
+                }
+            }
         </script>
     </body>
 </html>
