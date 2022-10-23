@@ -172,7 +172,7 @@
   height: 100%;
   width: 100%;
   align-items: center;
-  display: f;
+  display: flex;
   justify-content: center;
 }
 
