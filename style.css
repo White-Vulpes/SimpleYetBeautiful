@@ -9,6 +9,9 @@
     z-index: 0;
   }
 
+  .container{
+    display: none;
+  }
   .container::after {
     content: "";
     position: absolute;
@@ -27,7 +30,7 @@
   text-align: center;
   color: white;
   font-family:'Courier New', Courier, monospace;
-  padding: 180px;
+  padding: 130px;
 }
 
 .button-30 {
@@ -102,6 +105,32 @@
     font-size: 17px;
 }
 
+.regId{
+  position: relative;
+  text-align: center;
+  font-family: monospace;
+  color: white;
+  font-size: 19px;
+  padding: 15px;
+  background: #00000069;
+  border-radius: 15px;
+  border:none;
+  top: 50px;
+  outline: #EB9BC8;
+  transition: 0.8s ease all;
+}
+
+.regId:focus{
+  outline: 1px solid #00000069;
+  padding: 20px;
+}
+
+.regId::placeholder{
+  text-align: center;
+  font-family: monospace;
+  font-size: 17px;
+}
+
 .pass{
     position: relative;
     text-align: center;
@@ -128,6 +157,10 @@
     font-size: 17px;
 }
 
+.statictype{
+  font-size: 49px;
+}
+
 .autotype{
     font-size: 45px;
     font-family: monospace;
@@ -135,6 +168,16 @@
     color: #EB9BC8;
 }
 
-.statictype{
-    font-size: 49px;
+.loader{
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  display: f;
+  justify-content: center;
+}
+
+.result{
+  font-size: 17px;
+  position: relative;
+  top: 200px;
 }

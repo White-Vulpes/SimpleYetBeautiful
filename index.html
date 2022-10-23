@@ -4,20 +4,38 @@
         <link rel="stylesheet" href="./style.css">
     </head>
     <body>
-        <div class="container">
+        <div id="pre" class="loader">
+            <image src="./res/loader.gif" height="200px" width="200px"/>
+        </div>
+        <div id="main" class="container">
             <video autoplay muted loop id="myVideo">
                 <source src="./res/bg.mp4" type="video/mp4">
             </video>
             <div class="topper">
                 <p class="statictype">Simple Yet <span class="autotype"></span></p>
-                <input type="text" placeholder="username" onfocus="" class="user"><br>
+                <input type="text" placeholder="username" class="user"><br>
+                <input type="text" placeholder="registration Id" class="regId"><br>
                 <input type="password" placeholder="password" class="pass"><br>
                 <button class="button-30" onclick="login()" role="button">Log In</button>
-                <p id="Result">Hello World</p>
+                <button class="button-30" onclick="signup()" role="button">Sign Up</button>
+                <p id="Result" class="result"></p>
+                
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
         <script>
+            document.onreadystatechange = function() {
+                if (document.readyState !== "complete") {
+                    console.log("Not Completed");
+                    document.getElementById("main").style.display = "none";
+                    document.getElementById("pre").style.visibility = "visible";
+                } else {
+                    console.log("Completed");
+                    document.getElementById("main").style.display = "inline";
+                    document.getElementById("pre").style.display = "none";
+                }
+            }
+
             let typed = new Typed(".autotype", {
                 strings: ["Beautiful", "Awesome", "Mesmerizing", "Attractive"],
                 typeSpeed: 120,
@@ -26,12 +44,36 @@
             })
 
             let login = async () => {
-                let result = JSON.parse(await fetch("http://127.0.0.1:3981/SignIn", {method: 'POST', mode: "cors", headers: {'content-type':'application/json'}, body: JSON.stringify({ "id": "RA2031005010007", "password": "foxareawesome"})}).then((response) => response.json()).then((user) => { return JSON.stringify(user);}));
-                if(result.name){
-                    document.getElementById('Result').innerHTML = result.name;
+                let body = {id: document.getElementsByClassName("regId")[0].value, password: document.getElementsByClassName("pass")[0].value};
+                console.log(body);
+                try{
+                    let result = JSON.parse(await fetch("http://127.0.0.1:3981/SignIn", {method: 'POST', mode: "cors", headers: {'content-type':'application/json'}, body: JSON.stringify(body)}).then((response) => response.json()).then((user) => { return JSON.stringify(user);}));
+                    console.log(result);
+                    if(result.name){
+                        document.getElementById('Result').innerHTML = "Your Slot in Heaven is still valid";
+                    }
+                    else{
+                        document.getElementById('Result').innerHTML = "You have committed a Sin. Your place in heaven is void";
+                    }
+                }catch(e){
+                    document.getElementById('Result').innerHTML = "Error Occured. Try Again";
                 }
-                else{
-                    document.getElementById('Result').innerHTML = "Error Occured";
+            }
+
+            let signup = async () => {
+                let body = {id: document.getElementsByClassName("regId")[0].value, password: document.getElementsByClassName("pass")[0].value, name: document.getElementsByClassName("user")[0].value};
+                console.log(body);
+                try{
+                    let result = JSON.parse(await fetch("http://127.0.0.1:3981/SignUp", {method: 'POST', mode: "cors", headers: {'content-type':'application/json'}, body: JSON.stringify(body)}).then((response) => response.json()).then((user) => { return JSON.stringify(user);}));
+                    console.log(result);
+                    if(result.affected_rows > 0){
+                        document.getElementById('Result').innerHTML = "Booked a slot in Heaven";
+                    }
+                    else if(result.message){
+                        document.getElementById('Result').innerHTML = "Your slot in heaven could not be booked";
+                    }
+                }catch(e){
+                    document.getElementById('Result').innerHTML = "Error Occured. Try Again";
                 }
             }
         </script>
